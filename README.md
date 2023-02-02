@@ -61,6 +61,7 @@ print(resp.text)
 ```
 
 У сервиса так же есть встроенная документация. Доступ предоставляется через Swagger UI: http://127.0.0.1:5000/docs/
+![swagger_api](https://user-images.githubusercontent.com/48491853/216316230-e1efca0e-70a7-4760-924d-f365d68b68d7.PNG)
 
 ## 4. Обучение ML-модели
 **Отчёт по анализу данных и поиску модели можно найти [тут](https://htmlpreview.github.io/?https://github.com/tedey-01/TweetsAnalyzer/blob/master/notebooks/ModelResearch.html)**
@@ -94,4 +95,4 @@ $ cd utility_scripts/UI
 $ streamlit run streamlit_ui.py
 ```
 User Interface выглядит следующим образом: 
-
+![UI_screen](https://user-images.githubusercontent.com/48491853/216316277-2b6e3fa3-d7d0-4f92-88a3-0dbc2f6894dd.PNG)
