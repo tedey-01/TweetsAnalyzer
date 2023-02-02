@@ -28,7 +28,7 @@ def analyze_tweet(tweet: Tweet) -> dict:
     prepared_df = data_handler.prepare_data(data)
     
     model_keeper = mp.ModelKeeper("Log_Reg_model")
-    model = model_keeper.build_model(prepared_df, train=False, do_cv=False)
+    model = model_keeper.build_model(train=False, do_cv=False)
 
     answer = {}
     answer['probabilities'] = model.predict_proba(data).tolist()[0]

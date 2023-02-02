@@ -12,7 +12,7 @@ pio.templates.default = "seaborn"
 
 
 AI_URL = "http://127.0.0.1:5000/analyze_tweet/"
-PLOTTING_DATA_PATH = os.path.join('..', 'data', 'df_for_plot_on_map.csv')
+PLOTTING_DATA_PATH = os.path.join('..', '..', 'data', 'df_for_plot_on_map.csv')
 
 
 class Tweet:

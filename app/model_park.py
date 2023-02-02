@@ -82,7 +82,7 @@ class ModelKeeper:
         self.target_col = 'target'
         self.model = None
 
-    def build_model(self, data: pd.DataFrame, train=False, do_cv=False):
+    def build_model(self, data: pd.DataFrame=None, train=False, do_cv=False):
         os.makedirs(self.model_base_path, exist_ok=True)
         model_path = os.path.join(self.model_base_path, f"{self.model_codename}_pipeline.joblib")
 
@@ -170,6 +170,7 @@ if __name__ == '__main__':
     # model_keeper = ModelKeeper("Log_Reg_model")
     # model = model_keeper.build_model(prepared_df, train=True, do_cv=True)
 
+
     # # Use Model
     # data = {
     #     'keyword': ['aaa'], 
@@ -180,5 +181,17 @@ if __name__ == '__main__':
     # data_handler = DataHandler()
     # prepared_df = data_handler.prepare_data(df)
     # model_keeper = ModelKeeper("Log_Reg_model")
-    # model = model_keeper.build_model(prepared_df, train=False, do_cv=False)
+    # model = model_keeper.build_model(train=False, do_cv=False)
     # print(model.predict_proba(df))
+
+
+    # # make submit 
+    # test_df = pd.read_csv(os.path.join('..', 'data', 'test.csv'))
+    # data_handler = DataHandler()
+    # prepared_test_df = data_handler.prepare_data(test_df)
+    # model_keeper = ModelKeeper("Log_Reg_model")
+    # model = model_keeper.build_model(train=False, do_cv=False)
+    # preds = model.predict(prepared_test_df)
+
+    # submit = pd.DataFrame({'id': test_df['id'].values, 'target': preds})
+    # submit.to_csv(os.path.join('..', 'data', 'submit.csv'), index=False)
