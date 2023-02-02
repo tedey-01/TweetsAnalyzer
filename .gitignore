@@ -131,3 +131,6 @@ dmypy.json
 # ML-models
 *catboost_info
 *.joblib
+
+# Trash files
+*Plotting_map.ipynb

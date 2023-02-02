@@ -19,8 +19,8 @@ class Tweet(BaseModel):
     text: list
 
 
-@app.post("/analyze_tweet/", response_model=str)
-def read_item(tweet: Tweet) -> str:
+@app.post("/analyze_tweet/", response_model=dict)
+def analyze_tweet(tweet: Tweet) -> dict:
     data = pd.DataFrame({'keyword': tweet.keyword, 'location': tweet.location, 'text': tweet.text})
     logger.info(f"Input data: {data}")
 
@@ -29,10 +29,12 @@ def read_item(tweet: Tweet) -> str:
     
     model_keeper = mp.ModelKeeper("Log_Reg_model")
     model = model_keeper.build_model(prepared_df, train=False, do_cv=False)
-    prediction = model.predict(data)
-    prediction = 'real tweet' if prediction else 'fake tweet'
-    logger.info(f"Prediction: {prediction}")
-    return prediction
+
+    answer = {}
+    answer['probabilities'] = model.predict_proba(data).tolist()[0]
+    answer['class'] = 'real' if model.predict(data) else 'fake'
+    logger.info(f"Answer: {answer}")
+    return answer
 
 if __name__ == "__main__":
     uvicorn.run("web_server:app", host="127.0.0.1", port=5000, log_level="info")
