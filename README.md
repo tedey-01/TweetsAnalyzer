@@ -9,26 +9,30 @@
 ## 2. Структура проекта 
 ```
 ├── LICENSE
-├── README.md                  <- The top-level README for developers using this project.
+├── README.md                      <- The top-level README for developers using this project.
 ├── data
-│   ├── train.csv              <- Data for train model
-│   └── test.csv               <- Data for test model
+│   ├── df_for_plot_on_map.csv     <- Data for train model
+│   ├── train.csv                  <- Data for train model
+│   └── test.csv                   <- Data for test model
 │   
 ├── app
-│   ├── log_utils.py           <- Module for set app logger
-│   ├── model_park.py          <- Module with ml-models and data handler
-│   └── web_server.py          <- FastAPI web-server
+│   ├── log_utils.py               <- Module for set app logger
+│   ├── model_park.py              <- Module with ml-models and data handler
+│   └── web_server.py              <- FastAPI web-server
 │   
-├── models                     <- Models storage dir
+├── models                         <- Models storage dir
 │   
 ├── notebooks
-│   ├── ModelResearch.html     <- Data analysis and model researsh
-│   └── ModelResearch.ipynb    <- Data analysis and model researsh notebook
+│   ├── ModelResearch.html         <- Data analysis and model researsh
+│   └── ModelResearch.ipynb        <- Data analysis and model researsh notebook
 │   
 ├── utility_scripts
-│   └── simple_client.py       <- Web-server API simple client
+│   ├── simple_client.py           <- Web-server API simple client
+│   └── UI.py                      
+│       ├── plot_tools.py          <- Data preparing script for GEO-MAP
+│       └── streamlit_ui.py        <- Streamlit UI
 │   
-└── Test_task.html             <- Project task
+└── Test_task.html                 <- Project task
 ```
 
 ## 3. Запуск проекта
@@ -56,6 +60,8 @@ resp = requests.post(URL, json={**DATA})
 print(resp.text)
 ```
 
+У сервиса так же есть встроенная документация. Доступ предоставляется через Swagger UI: http://127.0.0.1:5000/docs/
+
 ## 4. Обучение ML-модели
 **Отчёт по анализу данных и поиску модели можно найти [тут](https://htmlpreview.github.io/?https://github.com/tedey-01/TweetsAnalyzer/blob/master/notebooks/ModelResearch.html)**
 Для переобучения модели достаточно либо воспроизвести `ModelResearch.ipynb`, липо выполнить следующую последовательность команд: 
@@ -66,7 +72,7 @@ $ cd ./app
 $ python model_park.py
 ```
 
-## 4. Метрики качества 
+## 5. Метрики качества 
 На текущий момент качество модели LogReg составило:
 
 |    metric    | precision | recall | f1-score | support |
@@ -77,4 +83,15 @@ $ python model_park.py
 |   accuracy   |           |        |   0.80   |   2268  |
 |  macro avg   |    0.79   |  0.79  |   0.79   |   2268  |
 | weighted avg |    0.80   |  0.80  |   0.80   |   2268  |
+
+## 6. User Interface
+
+К сервису написан небольшой UI на Streamlit. Общение между ними происходит через Http запросы. 
+Для запуска необходимо выполнить следующие команды: 
+
+```bash 
+$ cd utility_scripts/UI
+$ streamlit run streamlit_ui.py
+```
+User Interface выглядит следующим образом: 
 
