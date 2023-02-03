@@ -1,7 +1,7 @@
 import requests
 import os
 import json
-import pandas as pd 
+import pandas as pd
 import streamlit as st
 import plotly.express as px
 import plotly.io as pio
@@ -22,7 +22,7 @@ class Tweet:
         self.location = location
         self.size = 40
         self.id = -1
-        self.target = None 
+        self.target = None
 
     def convert_to_df(self) -> pd.DataFrame:
         tweet_df = pd.DataFrame({
@@ -38,8 +38,8 @@ class Tweet:
 
 def analyze_tweet(url: str, tweet: Tweet) -> dict:
     data = {
-        'text': [tweet.text], 
-        'keyword': [tweet.keyword], 
+        'text': [tweet.text],
+        'keyword': [tweet.keyword],
         'location': [tweet.location]
     }
     resp = requests.post(url, json={**data})
@@ -57,15 +57,15 @@ def concat_plot_data(data_path: str, tweet: Tweet) -> pd.DataFrame:
 
 def create_barplot(probabilities: list):
     fig = px.bar(
-        x=['real', 'fake'], 
+        x=['real', 'fake'],
         y=probabilities,
         title="Probabilities of belonging to a class",
         labels=dict(x="Classes", y="Probability")
     )
     fig.update_traces(
-        marker_color='rgb(255,255,102)', 
-        marker_line_color='rgb(255,153,0)', 
-        marker_line_width=1.5, 
+        marker_color='rgb(255,255,102)',
+        marker_line_color='rgb(255,153,0)',
+        marker_line_width=1.5,
         opacity=0.6,
     )
     # fig.update_traces(marker_color='rgb(158,202,225)', marker_line_color='rgb(8,48,107)', marker_line_width=1.5, opacity=0.6)
@@ -74,13 +74,13 @@ def create_barplot(probabilities: list):
 
 def create_scatterplot(df: pd.DataFrame):
     map_fig = px.scatter_geo(
-        df, 
-        lat = 'lat',
-        lon = 'lon',
-        color = 'target',
-        hover_data = ['text'],
-        opacity = 0.7,
-        size = 'size',
+        df,
+        lat='lat',
+        lon='lon',
+        color='target',
+        hover_data=['text'],
+        opacity=0.7,
+        size='size',
         projection="natural earth",
     )
     return map_fig
@@ -89,7 +89,7 @@ def create_scatterplot(df: pd.DataFrame):
 # Общий функционал и настройки
 st.set_page_config(layout='wide')
 st.sidebar.markdown('### Настройки')
-doc_types = ['Log Reg', 'BERT',]
+doc_types = ['Log Reg', 'BERT']
 selected_doc_type = st.sidebar.selectbox('Модель', doc_types)
 
 col1, _, col2 = st.columns([10, 2, 14])
@@ -99,7 +99,7 @@ with col1:
     tweet_body = st.text_area("Write Tweet Body", placeholder="There is a fiery sunset in Moscow today")
     tweet_keywords = st.text_input("Write keywords separated by a space", placeholder="#nature")
     tweet_location = st.text_input("Write your location", placeholder="Moscow")
-    
+
     process_button = st.button('Обработать')
     if process_button:
         tweet = Tweet(tweet_body, tweet_keywords, tweet_location)
@@ -119,4 +119,4 @@ with col2:
         st.plotly_chart(bar_fig, use_container_width=True)
 
 
-st.stop() 
+st.stop()

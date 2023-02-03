@@ -1,5 +1,5 @@
 import os
-import pandas as pd 
+import pandas as pd
 from tqdm import tqdm
 
 from geopy.geocoders import Nominatim
